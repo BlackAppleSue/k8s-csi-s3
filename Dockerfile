@@ -1,6 +1,9 @@
 FROM golang:1.19-alpine as gobuild
 
 WORKDIR /build
+RUN apk add --no-cache git
+ENV GOPROXY=direct
+ENV GOINSECURE=storage.googleapis.com,proxy.golang.org
 ADD go.mod go.sum /build/
 RUN go mod download -x
 ADD cmd /build/cmd
